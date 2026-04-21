@@ -1,0 +1,23 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Departement;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class DepartementSeeder extends Seeder
+{
+    
+    public function run(): void
+    {
+        Departement::create(['name' => 'Teknik Informatika']);
+        Departement::create(['name' => 'Sistem Informasi']);
+        Departement::create(['name' => 'Bisnis Digital']);
+        Departement::create(['name' => 'Teknologi Informasi']);
+        Departement::create(['name' => 'Pendidikan Teknologi Informasi']);
+        Departement::create(['name' => 'Magister Ilmu Komputer']);
+        
+
+    }
+}
