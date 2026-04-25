@@ -40,7 +40,10 @@ class DepartementController extends Controller
      */
     public function show(Departement $departement)
     {
-        //
+         return view('departement.show' , 
+        ['tittle' => 'Detail Departement ' . $departement->name,
+        'departement' => $departement,  
+        ]);
     }
 
     /**

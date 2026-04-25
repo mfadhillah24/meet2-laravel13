@@ -14,11 +14,26 @@ class LecturerController extends Controller
      */
     public function index()
     {
-        $lecturers = Lecturer::with('departement')->get();
+
+        $lecturers = Lecturer::latest();
+        $keyword = request('keyword');
+
+        if($keyword){
+            $lecturers->where('name', 'like', '%'. $keyword . '%');
+        }
+
+        $departement_id = request('departement_id');
+
+        if($departement_id){
+            $lecturers->where('departement_Id', $departement_id);
+        }
+
+            $lecturers = $lecturers->paginate(5)->withQueryString();
         
     
         return view('lecturer.index',[
             'lecturers' => $lecturers,
+            'departements' => Departement::latest()->get(),
             'title' => 'Lecturer List'
         ]);
     }
@@ -64,7 +79,7 @@ class LecturerController extends Controller
      */
     public function show(Lecturer $lecturer)
     {
-        //
+        
     }
 
     /**
