@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Departement;
 use App\Models\Lecturer;
 use Illuminate\Http\Request;
+
 
 class LecturerController extends Controller
 {
@@ -14,7 +16,7 @@ class LecturerController extends Controller
     {
         $lecturers = Lecturer::with('departement')->get();
         
-        $lecturers = Lecturer::all();
+    
         return view('lecturer.index',[
             'lecturers' => $lecturers,
             'title' => 'Lecturer List'
@@ -26,7 +28,10 @@ class LecturerController extends Controller
      */
     public function create()
     {
-        //
+        return view('lecturer.create',[
+            'title' => 'Lecturer Create',
+            'departements' => Departement::latest()->get(),
+        ]);
     }
 
     /**
@@ -34,7 +39,24 @@ class LecturerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+        'name' => 'required|max:255',
+        'departement_id' => 'required|exists:departements,id',
+    
+    ],
+    [
+        'name.required' => 'Nama wajib diisi',
+        'name.max' => 'Nama tidak boleh lebih dari :max karakter',
+        'departement_id.required' => 'prodi wajib diisi',
+        'departement_id.exists' => 'prodi yang dipilih tidak valid',
+        
+    ]);
+
+    Lecturer::create($validated);
+    
+    return to_route('lecturer.index')->withSuccess('Lecturer created successfully');
+
+    return redirect('/lecturer');
     }
 
     /**
@@ -50,7 +72,11 @@ class LecturerController extends Controller
      */
     public function edit(Lecturer $lecturer)
     {
-        //
+         return view('lecturer.edit',[
+            'title' => 'Lecturer edit',
+            'departements' => Departement::latest()->get(),
+            'lecturer' => $lecturer,
+        ]);
     }
 
     /**
@@ -58,7 +84,24 @@ class LecturerController extends Controller
      */
     public function update(Request $request, Lecturer $lecturer)
     {
-        //
+        $validated = $request->validate([
+        'name' => 'required|max:255',
+        'departement_id' => 'required|exists:departements,id',
+    
+    ],
+    [
+        'name.required' => 'Nama wajib diisi',
+        'name.max' => 'Nama tidak boleh lebih dari :max karakter',
+        'departement_id.required' => 'prodi wajib diisi',
+        'departement_id.exists' => 'prodi yang dipilih tidak valid',
+        
+    ]);
+
+    $lecturer->update($validated);
+    
+    return to_route('lecturer.index')->withSuccess('Lecturer updated successfully');
+
+
     }
 
     /**
@@ -66,6 +109,7 @@ class LecturerController extends Controller
      */
     public function destroy(Lecturer $lecturer)
     {
-        //
+         $lecturer->delete();
+        return to_route('lecturer.index')->withSuccess('Lecturer deleted successfully');
     }
 }

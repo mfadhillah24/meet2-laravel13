@@ -13,6 +13,8 @@ class Lecturer extends Model
 {
     /** @use HasFactory<\Database\Factories\LecturerFactory> */
     use HasFactory;
+
+    protected $with = ['departement'];
     public function departement(): BelongsTo
     {
         return $this->belongsTo(Departement::class);
