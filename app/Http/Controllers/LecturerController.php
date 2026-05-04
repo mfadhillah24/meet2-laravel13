@@ -15,18 +15,8 @@ class LecturerController extends Controller
     public function index()
     {
 
-        $lecturers = Lecturer::latest();
-        $keyword = request('keyword');
-
-        if($keyword){
-            $lecturers->where('name', 'like', '%'. $keyword . '%');
-        }
-
-        $departement_id = request('departement_id');
-
-        if($departement_id){
-            $lecturers->where('departement_Id', $departement_id);
-        }
+        $lecturers = Lecturer::latest()->filter(request(['keyword', 'departement_id']));
+        
 
             $lecturers = $lecturers->paginate(5)->withQueryString();
         

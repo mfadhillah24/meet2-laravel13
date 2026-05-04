@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             StudentSeeder::class,
             DepartementSeeder::class,
             LecturerSeeder::class,
+            OrganisasiSeeder::class,
         ]);
     }
 }
