@@ -2,7 +2,7 @@
 
      <x-slot:title>{{  $tittle }}</x-slot> @session('success')
     <div class="alert alert-success">
-        {{ $value }}
+        {{ $session('success') }} 
     </div>
 @endsession
   <form method="POST" action="{{ route('student.update', $student) }}">

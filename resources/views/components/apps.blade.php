@@ -19,6 +19,7 @@
         <a class="nav-link" href="{{ route('departement.index')}}">Departement</a>
         <a class="nav-link" href="{{ route('lecturer.index')}}">Lecturer</a>
         <a class="nav-link" href="{{ route('organisasi.index')}}">Organisasi</a>
+        <a class="nav-link" href="{{ route('student.trash')}}">Trash</a>
         
       </div>
     </div>

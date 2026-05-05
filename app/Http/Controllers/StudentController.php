@@ -100,4 +100,25 @@ class StudentController extends Controller
         
         return to_route('student.index')->withSuccess('Student deleted successfully');
     }
+
+    //Delete with soft delete
+    public function trash()
+    {
+        return view('student.trash' , 
+        ['tittle' => 'Trash Student',
+        'students' => Student::onlyTrashed()->latest()->get()]);
+}
+public function restore(Student $student)
+    {
+        $student->restore();
+        
+        return to_route('student.trash')->withSuccess('Student restore successfully');
+    }
+
+    public function forceDelete(Student $student)
+    {
+        $student->forceDelete();
+        
+        return to_route('student.trash')->withSuccess('Student deleted permanent    successfully');
+    }
 }

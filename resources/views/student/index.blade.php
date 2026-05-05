@@ -7,7 +7,7 @@
         @foreach ($students as $student)
         <li class="list-group-item">
             <a href="{{ route('student.edit', $student) }}" class="btn btn-warning mb-3 btn-sm">
-                Edit</a>{{ $loop->iteration }}. {{ $student->nim}} -- {{ $student->name}}
+                Edit</a>{{ $loop->iteration }}. {{ $student->nim}} -- {{ $student->name}} -- {{ $student->gender }}
             <form action ="{{ route('student.destroy', $student) }}" method="POST" class="d-inline">
     @method('DELETE')
     @csrf
